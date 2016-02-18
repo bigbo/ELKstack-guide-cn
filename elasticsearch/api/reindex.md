@@ -45,7 +45,7 @@ input {
 }
 output {
   elasticsearch {
-    host => [ "192.168.0.3" ]
+    hosts => [ "192.168.0.3" ]
     index => "%{[@metadata][_index]}"
     document_type => "%{[@metadata][_type]}"
     document_id => "%{[@metadata][_id]}"
@@ -53,6 +53,8 @@ output {
   }
 }
 ```
+
+### 小贴士
 
 如果你做 reindex 的源索引并不是 logstash 记录的内容，也就是没有 `@timestamp`, `@version` 这两个 logstash 字段，那么可以在上面配置中添加一段 filter 配置，确保前后索引字段完全一致：
 
@@ -63,3 +65,5 @@ filter {
   }
 }
 ```
+
+output elasticsearch 的接口在2.x版本有更新,由1.x版本的 host 变更为 hosts
