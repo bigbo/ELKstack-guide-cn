@@ -1,6 +1,8 @@
 # Kibana4 插件
 
-Kibana 从 4.2 以后，引入了完善的插件化机制。原先意义上的 Kibana 现在已经变成了 Kibana 插件框架下的一个默认插件。本节用以讲述 Kibana4 插件的安装使用和定制开发。
+Kibana 从 4.2 以后，引入了完善的插件化机制。目前分为 app，vistype，fieldformatter、spymode 等多种插件类型。原先意义上的 Kibana 现在已经变成了 Kibana 插件框架下的一个默认 app 类型插件。
+
+本节用以讲述 Kibana4 插件的安装使用和定制开发。
 
 ## 部署命令
 
@@ -16,21 +18,26 @@ version 是可选项。这种方式目前适用于官方插件，比如：
 
 ```
 bin/kibana plugin -i elasticsearch/marvel/latest
-```
-
-2. 通过 GitHub 仓库地址：
-
-```
-bin/kibana plugin --install <github-user>/<github-repo>/<version>
-```
-
-这种方式目前适用于非官方，或官方还未发布的，寄存在 GitHub 上的插件代码，比如：
-
-```
 bin/kibana plugin -i elastic/timelion
-bin/kibana plugin -i sirensolutions/kibi_wordcloud_vis/0.1.0
-bin/kibana plugin -i sirensolutions/kibi_radar_vis/0.1.0
 ```
+
+```
+```
+
+2. 通过 zip 压缩包：
+
+支持本地和远程 HTTP 下载两种，比如：
+
+```
+bin/kibana plugin --install sense -u file:///tmp/sense-2.0.0-beta1.tar.gz
+bin/kibana plugin -i heatmap -u https://github.com/stormpython/heatmap/archive/master.zip
+bin/kibana plugin -i kibi_timeline_vis -u https://github.com/sirensolutions/kibi_timeline_vis/raw/0.1.2/target/kibi_timeline_vis-0.1.2.zip
+bin/kibana plugin -i oauth2 -u https://github.com/trevan/oauth2/releases/download/0.1.0/oauth2-0.1.0.zip
+```
+
+目前已知的 Kibana4 Plugin 列表见官方 WIKI：<https://github.com/elastic/kibana/wiki/Known-Plugins>
+
+注意：kibana 目前版本变动较大，不一定所有插件都可以成功使用
 
 ## 查看与切换
 
