@@ -23,7 +23,7 @@ filter {
         }
     }
 }
-output {stdout{}}
+output {stdout{codec => rubydebug}}
 ```
 
 运行 logstash 进程然后输入 "begin 123.456 end"，你会看到类似下面这样的输出：
@@ -55,9 +55,9 @@ USERNAME [a-zA-Z0-9._-]+
 USER %{USERNAME}
 ```
 
-**第一行，用普通的正则表达式来定义一个 grok 表达式；第二行，通过打印赋值格式，用前面定义好的 grok 表达式来定义另一个 grok 表达式。**
+**第一行，用普通的正则表达式来定义一个 grok 表达式；第二行，通过打印赋值格式(sprintf format)，用前面定义好的 grok 表达式来定义另一个 grok 表达式。**
 
-grok 表达式的打印复制格式的完整语法是下面这样的：
+grok 表达式的打印赋值格式的完整语法是下面这样的：
 
 ```
 %{PATTERN_NAME:capture_name:data_type}
@@ -102,7 +102,7 @@ filter {
 ```
 filter {
     grok {
-        patterns_dir => "/path/to/your/own/patterns"
+        patterns_dir => ["/path/to/your/own/patterns"]
         match => {
             "message" => "%{SYSLOGBASE} %{DATA:message}"
         }
@@ -110,6 +110,8 @@ filter {
     }
 }
 ```
+
+更多有关 grok 正则性能的最佳实践(`timeout_millis` 等)，见：<https://www.elastic.co/blog/do-you-grok-grok>
 
 ## 小贴士
 
